@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Portal Paciente DigitHos</title>
+
+<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<div class="header">
+<h1>🏥 Portal del Paciente</h1>
+</div>
+
+<!-- LOGIN -->
+<div class="menu">
+<select id="pacienteSelect"></select>
+<button onclick="login()">Entrar</button>
+</div>
+
+<!-- PANEL -->
+<div class="container hidden" id="panel">
+
+<!-- PERFIL -->
+<div id="perfil"></div>
+
+<!-- MEDICACIÓN -->
+<div id="meds"></div>
+
+<!-- ALERTAS -->
+<div id="alertas"></div>
+
+<!-- 🧠 REGISTRO DE MEDICIONES -->
+<h2>📝 Registro de mediciones</h2>
+
+<div class="box">
+<input id="valorMedicion" placeholder="Ej: 120/80 o 110 mg/dL">
+<button onclick="guardarMedicion()">Guardar</button>
+</div>
+
+<div id="historialMediciones"></div>
+
+<!-- EDUCACIÓN -->
+<h2>🎓 Módulo Educativo</h2>
+
+<div id="educacionBox" class="edu-box"></div>
+
+<p id="eduStatus">Estado: NO VISTO</p>
+<button onclick="marcarEducacion()">Marcar como visto</button>
+
+</div>
+
+<script src="pacientes.js"></script>
+
+<script>
+let actual = null;
+let registros = [];
+
+// ===============================
+// CARGAR PACIENTES
+// ===============================
+window.addEventListener("DOMContentLoaded", () => {
+
+const sel = document.getElementById("pacienteSelect");
+
+pacientes.forEach((p,i)=>{
+let op = document.createElement("option");
+op.value = i;
+op.text = p.nombre;
+sel.appendChild(op);
+});
+
+});
+
+// ===============================
+// LOGIN
+// ===============================
+function login(){
+
+let i = document.getElementById("pacienteSelect").value;
+actual = pacientes[i];
+
+document.getElementById("panel").classList.remove("hidden");
+
+// PERFIL
+document.getElementById("perfil").innerHTML = `
+<div class="box">
+<h2>${actual.nombre}</h2>
+<p><b>Diagnóstico:</b> ${actual.diag}</p>
+<p><b>Médico:</b> ${actual.medico}</p>
+<p><b>Próxima cita:</b> ${actual.proximaCita}</p>
+</div>
+`;
+
+// MEDICACIÓN
+document.getElementById("meds").innerHTML = `
+<div class="box">
+<h3>💊 Medicación</h3>
+<p>${actual.medicamentos}</p>
+<p>${actual.dosis}</p>
+</div>
+`;
+
+// ALERTAS CON BOTÓN
+let alertas = "";
+
+if(actual.diag.toLowerCase().includes("diabetes")){
+alertas += `
+<div class="cita" id="a1">
+🩸 Medir glucosa hoy
+<button onclick="completar('a1')">Hecho</button>
+</div>`;
+}
+
+if(actual.diag.toLowerCase().includes("hipertensión")){
+alertas += `
+<div class="cita" id="a2">
+💓 Tomar presión arterial
+<button onclick="completar('a2')">Hecho</button>
+</div>`;
+}
+
+alertas += `
+<div class="cita" id="a3">
+⏰ Tomar medicamentos
+<button onclick="completar('a3')">Hecho</button>
+</div>`;
+
+// NOTIFICACIÓN
+if ("Notification" in window) {
+Notification.requestPermission().then(p=>{
+if(p==="granted"){
+new Notification("DigitHos", {
+body:"Recordatorio: "+actual.nombre
+});
+}
+});
+}
+
+document.getElementById("alertas").innerHTML = alertas;
+
+// EDUCACIÓN
+mostrarEducacion(actual);
+}
+
+// ===============================
+// COMPLETAR ALERTA
+// ===============================
+function completar(id){
+let el = document.getElementById(id);
+el.style.background = "#c8e6c9";
+el.style.borderLeft = "6px solid #2e7d32";
+el.innerHTML += " ✔ Realizado";
+}
+
+// ===============================
+// GUARDAR MEDICIÓN
+// ===============================
+function guardarMedicion(){
+
+let v = document.getElementById("valorMedicion").value;
+
+if(v.trim() === "") return;
+
+registros.push(v);
+
+mostrarRegistros();
+
+document.getElementById("valorMedicion").value = "";
+}
+
+function mostrarRegistros(){
+
+let html = "<h3>📊 Historial</h3>";
+
+registros.forEach((r,i)=>{
+html += `<div class="box">Registro ${i+1}: ${r}</div>`;
+});
+
+document.getElementById("historialMediciones").innerHTML = html;
+}
+
+// ===============================
+// EDUCACIÓN
+// ===============================
+function mostrarEducacion(paciente){
+
+let video = "";
+
+if(paciente.diag.toLowerCase().includes("diabetes")){
+video = "https://www.youtube.com/embed/wZAjVQWbMlE";
+}
+else if(paciente.diag.toLowerCase().includes("hipertensión")){
+video = "https://www.youtube.com/embed/8JjLhYwR3MM";
+}
+else if(paciente.diag.toLowerCase().includes("infarto")){
+video = "https://www.youtube.com/embed/2pQXc2nY2pQ";
+}
+else if(paciente.diag.toLowerCase().includes("neumonía")){
+video = "https://www.youtube.com/embed/7wX0g0k9Z3A";
+}
+else{
+video = "https://www.youtube.com/embed/8JjLhYwR3MM";
+}
+
+document.getElementById("educacionBox").innerHTML = `
+<div class="edu-card">
+
+<h3>📚 Educación</h3>
+
+<iframe width="100%" height="220"
+src="${video}"
+frameborder="0"
+allowfullscreen></iframe>
+
+<p><b>${paciente.diag}</b></p>
+
+</div>
+`;
+}
+
+// ===============================
+// MARCAR EDUCACIÓN
+// ===============================
+function marcarEducacion(){
+
+let s = document.getElementById("eduStatus");
+s.innerText = "Estado: VISTO ✔";
+s.style.color = "green";
+}
+</script>
+
+</body>
+</html>

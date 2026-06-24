@@ -1,0 +1,242 @@
+/* =========================
+   FUENTE GENERAL
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body{
+margin:0;
+font-family:'Poppins', sans-serif;
+background:#eef4ff;
+color:#1a1a1a; /* 🔥 texto oscuro general */
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+background:#0d47a1;
+color:white;
+padding:15px;
+text-align:center;
+font-weight:600;
+}
+
+/* =========================
+   MENÚ
+========================= */
+
+.menu{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:10px;
+background:#1565c0;
+}
+
+.menu button{
+padding:10px 15px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+color:white;
+background:#1e88e5;
+font-family:'Poppins', sans-serif;
+transition:0.2s;
+}
+
+.menu button:hover{
+background:#1565c0;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+padding:20px;
+}
+
+/* =========================
+   GRID PACIENTES
+========================= */
+
+.grid{
+display:flex;
+gap:20px;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.card{
+flex:1;
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#1a1a1a; /* 🔥 asegura texto visible */
+}
+
+.card h3{
+color:#0d47a1;
+}
+
+/* items pacientes */
+.card div{
+padding:8px;
+margin:6px 0;
+border-radius:6px;
+cursor:pointer;
+color:#1a1a1a; /* 🔥 FIX PRINCIPAL */
+}
+
+/* =========================
+   EXPEDIENTE
+========================= */
+
+.expediente{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#1a1a1a;
+}
+
+/* =========================
+   EDUCACIÓN
+========================= */
+
+.educacion{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#1a1a1a;
+}
+#educacionBox iframe{
+width:100%;
+height:220px;
+border-radius:10px;
+margin-top:10px;
+}
+
+/* =========================
+   INFO SISTEMA
+========================= */
+
+.info{
+margin-top:20px;
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#1a1a1a;
+}
+
+/* =========================
+   BOXES INTERNOS
+========================= */
+
+.box{
+background:#e3f2fd;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+color:#1a1a1a; /* 🔥 importante */
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.hidden{
+display:none;
+}
+
+/* riesgos */
+.rojo{background:#ffd6d6;}
+.amarillo{background:#fff6cc;}
+.verde{background:#d9ffd9;}
+
+/* =========================
+   CHAT IA
+========================= */
+
+#chat{
+background:white;
+padding:10px;
+height:200px;
+overflow:auto;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#1a1a1a;
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.stat-card{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 12px rgba(0,0,0,0.1);
+color:#1a1a1a;
+}
+
+/* =========================
+   ALERTAS ALTO RIESGO
+========================= */
+
+.card-riesgo{
+background:#fff0f0;
+padding:15px;
+margin-top:15px;
+border-radius:12px;
+border-left:5px solid #d32f2f;
+color:#1a1a1a;
+}
+
+.card-riesgo li{
+color:#d32f2f;
+font-weight:500;
+}
+
+/* =========================
+   CITAS
+========================= */
+
+.cita{
+background:#fbe6c4;
+padding:10px;
+border-left:6px solid #f9a825;
+margin-top:10px;
+border-radius:8px;
+font-weight:bold;
+color:#1a1a1a;
+}
+.cita button{
+margin-left:10px;
+padding:5px 8px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:#1976d2;
+color:white;
+}
+
+.cita button:hover{
+background:#0d47a1;
+}
